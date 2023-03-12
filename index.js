@@ -4,7 +4,9 @@ const cors = require("cors")
 const dotenv = require("dotenv")
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
-const port  = 3000
+const port  = process.env.PORT || 5000
+const authRoute = require('./routes/authRoute')
+const propertyRoute = require('./routes/propertyRoute')
 
 dotenv.config()
 app.use(express.json())
@@ -20,11 +22,7 @@ mongoose.connect(process.env.MONGO_URL, {
   .catch((err) => console.log(err));
   
 app.use("/auth", authRoute)
-// app.use("/services", serviceRoute)
-// app.use("/categories", categoryRoute)
-// app.use("/reviews", reviewRoute)
-// app.use("/payment", paymentRoute)
-// app.use("/location", locationRoute)
+app.use("/property", propertyRoute)
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`)
